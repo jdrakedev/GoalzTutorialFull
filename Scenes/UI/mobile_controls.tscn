@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://dmygb4hyykhbp"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ra2ry"]
+size = Vector2(180, 320)
+
+[node name="MobileControls" type="CanvasLayer"]
+
+[node name="TouchScreenButton" type="TouchScreenButton" parent="."]
+position = Vector2(90, 160)
+shape = SubResource("RectangleShape2D_ra2ry")
+action = "Touch"

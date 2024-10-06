@@ -1,0 +1,61 @@
+[gd_scene load_steps=11 format=3 uid="uid://di460hmqo7ln8"]
+
+[ext_resource type="Texture2D" uid="uid://cqadj4kq42hav" path="res://Assets/Sprites/Exclamation.png" id="1_1ewfk"]
+[ext_resource type="Texture2D" uid="uid://mi3xo0yagyoi" path="res://Assets/Sprites/Ball.png" id="1_1ndyd"]
+[ext_resource type="Script" path="res://Scripts/Actors/ball.gd" id="1_i6bi4"]
+[ext_resource type="Texture2D" uid="uid://1u8sfb6ec17j" path="res://Assets/Sprites/Dial.png" id="4_3k7h6"]
+[ext_resource type="Script" path="res://Scripts/Actors/Dial.gd" id="5_selsf"]
+[ext_resource type="AudioStream" uid="uid://b304sqb6qy80a" path="res://Assets/Sounds/HitWall.wav" id="6_s20qp"]
+[ext_resource type="AudioStream" uid="uid://doafebre480dx" path="res://Assets/Sounds/Shoot.wav" id="7_4fn6f"]
+[ext_resource type="AudioStream" uid="uid://3yv3elwmfcu4" path="res://Assets/Sounds/Tick.wav" id="8_a85ww"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_kdire"]
+radius = 9.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7ji36"]
+
+[node name="Ball" type="CharacterBody2D" groups=["NotWall"]]
+script = ExtResource("1_i6bi4")
+
+[node name="Exclamation" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(0, -18)
+texture = ExtResource("1_1ewfk")
+
+[node name="Skin" type="Sprite2D" parent="."]
+texture = ExtResource("1_1ndyd")
+
+[node name="SkinShape" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_kdire")
+
+[node name="Dial" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("4_3k7h6")
+script = ExtResource("5_selsf")
+
+[node name="RayCast2D" type="RayCast2D" parent="Dial"]
+target_position = Vector2(0, 320)
+
+[node name="BallArea" type="Area2D" parent="." groups=["Ball"]]
+
+[node name="BallAreaShape" type="CollisionShape2D" parent="BallArea"]
+shape = SubResource("CircleShape2D_7ji36")
+
+[node name="ShootTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="Hitwall" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_s20qp")
+
+[node name="Shoot" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_4fn6f")
+
+[node name="Tick" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_a85ww")
+
+[node name="TickTimer" type="Timer" parent="."]
+wait_time = 0.3
+
+[connection signal="body_entered" from="BallArea" to="." method="_on_ball_area_body_entered"]
+[connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer_timeout"]
+[connection signal="timeout" from="TickTimer" to="." method="_on_tick_timer_timeout"]

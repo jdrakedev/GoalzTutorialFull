@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://fxhnmw27eoye"]
+
+[ext_resource type="PackedScene" uid="uid://cja850c7q2s5t" path="res://Scenes/Tilesets/blocks.tscn" id="1_g24gq"]
+[ext_resource type="PackedScene" uid="uid://di460hmqo7ln8" path="res://Scenes/Actors/ball.tscn" id="2_arqts"]
+[ext_resource type="PackedScene" uid="uid://5ro4mk48ea7e" path="res://Scenes/UI/scene_transition.tscn" id="3_g8x2y"]
+
+[node name="Level2" type="Node2D"]
+
+[node name="Blocks" parent="." instance=ExtResource("1_g24gq")]
+layer_0/tile_data = PackedInt32Array(0, 0, 0, 1, 0, 0, 2, 0, 0, 3, 0, 0, 4, 0, 0, 5, 0, 0, 6, 0, 0, 7, 0, 0, 8, 0, 0, 9, 0, 0, 10, 0, 0, 65546, 0, 0, 131082, 0, 0, 196618, 0, 0, 262154, 0, 0, 327690, 0, 0, 393226, 0, 0, 458762, 0, 0, 524298, 0, 0, 589834, 0, 0, 655370, 0, 0, 720906, 0, 0, 786442, 0, 0, 851978, 0, 0, 917514, 0, 0, 983050, 0, 0, 1048586, 0, 0, 1114122, 0, 0, 1179658, 0, 0, 1245194, 0, 0, 1245193, 0, 0, 1245192, 0, 0, 1245191, 0, 0, 1245190, 0, 0, 1245189, 0, 0, 1245188, 0, 0, 1245187, 0, 0, 1245186, 0, 0, 1245185, 0, 0, 1245184, 0, 0, 1179648, 0, 0, 1114112, 0, 0, 1048576, 0, 0, 983040, 0, 0, 917504, 0, 0, 851968, 0, 0, 786432, 0, 0, 720896, 0, 0, 655360, 0, 0, 589824, 0, 0, 524288, 0, 0, 458752, 0, 0, 393216, 0, 0, 327680, 0, 0, 262144, 0, 0, 196608, 0, 0, 131072, 0, 0, 65536, 0, 0)
+
+[node name="Ball" parent="." instance=ExtResource("2_arqts")]
+position = Vector2(90, 180)
+
+[node name="SceneTransition" parent="." instance=ExtResource("3_g8x2y")]

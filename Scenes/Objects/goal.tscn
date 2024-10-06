@@ -1,0 +1,66 @@
+[gd_scene load_steps=8 format=3 uid="uid://11p17b8bgqhl"]
+
+[ext_resource type="Texture2D" uid="uid://dodwqr6dxact3" path="res://Assets/Sprites/Goal.png" id="1_4luup"]
+[ext_resource type="Script" path="res://Scripts/Objects/goal.gd" id="2_4i2dd"]
+[ext_resource type="AudioStream" uid="uid://dq32w5gfjdfph" path="res://Assets/Sounds/Goal.wav" id="3_vc3i4"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_po6rq"]
+size = Vector2(16, 16)
+
+[sub_resource type="Animation" id="Animation_elxgb"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_6fh4v"]
+resource_name = "Spin"
+length = 3.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 6.28319]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_d1utd"]
+_data = {
+"RESET": SubResource("Animation_elxgb"),
+"Spin": SubResource("Animation_6fh4v")
+}
+
+[node name="Goal" type="Sprite2D"]
+texture = ExtResource("1_4luup")
+script = ExtResource("2_4i2dd")
+
+[node name="GoalArea" type="Area2D" parent="." groups=["NotWall"]]
+
+[node name="GoalShape" type="CollisionShape2D" parent="GoalArea"]
+shape = SubResource("RectangleShape2D_po6rq")
+
+[node name="Ani" type="AnimationPlayer" parent="."]
+autoplay = "Spin"
+libraries = {
+"": SubResource("AnimationLibrary_d1utd")
+}
+
+[node name="GoalReached" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_vc3i4")
+
+[connection signal="area_entered" from="GoalArea" to="." method="_on_goal_area_area_entered"]
